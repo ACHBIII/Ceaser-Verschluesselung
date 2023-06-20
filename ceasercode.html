@@ -18,6 +18,7 @@
         }
         .card {
             width: 600px;
+
             border: none;
         }
         .card-header {
@@ -39,7 +40,7 @@
             width: 100%;
         }
         .form-group label {
-            color: #ffffff;
+            color: #007bff;
         }
         .form-control {
             background-color: #e9ecef;
@@ -48,6 +49,10 @@
         .btn-primary {
             background-color: #007bff;
             border-color: #007bff;
+        }
+        #history {
+            max-height: 200px;
+            overflow-y: auto;
         }
     </style>
 </head>
@@ -90,9 +95,16 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#history" aria-expanded="false" aria-controls="history">
+                Verlauf Anzeigen
+            </button>
+            <div class="collapse" id="history">
+                <!-- History will be inserted here -->
+            </div>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script>
         function caesarShift(text, shift) {
@@ -105,13 +117,48 @@
                 return c
             }).join('')
         }
+
         function encrypt() {
             var plaintext = document.getElementById('plaintext').value
-            document.getElementById('encrypted').value = caesarShift(plaintext, 1)
+            var encrypted = caesarShift(plaintext, 1)
+            document.getElementById('encrypted').value = encrypted
+            saveToHistory("encryption", plaintext, encrypted)
         }
+
         function decrypt() {
             var ciphertext = document.getElementById('ciphertext').value
-            document.getElementById('decrypted').value = caesarShift(ciphertext, -1)
+            var decrypted = caesarShift(ciphertext, -1)
+            document.getElementById('decrypted').value = decrypted
+            saveToHistory("decryption", ciphertext, decrypted)
+        }
+
+        function saveToHistory(type, input, output) {
+            var history = JSON.parse(localStorage.getItem("caesarCipherHistory") || "[]")
+            history.unshift({
+                type: type,
+                input: input,
+                output: output,
+                time: new Date().toLocaleString()
+            })
+            if (history.length > 10) {
+                history.length = 10
+            }
+            localStorage.setItem("caesarCipherHistory", JSON.stringify(history))
+            loadHistory()
+        }
+
+        function loadHistory() {
+            var history = JSON.parse(localStorage.getItem("caesarCipherHistory") || "[]")
+            var historyDiv = document.getElementById('history')
+            historyDiv.innerHTML = '<div class="card mt-2"><div class="list-group list-group-flush">'
+            history.forEach(function(item) {
+                historyDiv.innerHTML += '<div class="list-group-item">' + '<p><b>' + item.type + '</b></p>' + '<p>' + item.input + ' ➡️ ' + item.output + '</p>' + '<p><small>' + item.time + '</small></p>' + '</div>'
+            })
+            historyDiv.innerHTML += '</div></div>'
+        }
+
+        window.onload = function() {
+            loadHistory()
         }
     </script>
 </body>

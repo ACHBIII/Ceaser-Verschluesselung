@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- da wird de scheiss css importiert. -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- so wird de scheiss Schrift art importiert :) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* usgseh vo de ganze inhalt */
         body {
             font-family: 'Roboto', sans-serif;
             padding: 0;
@@ -13,51 +16,63 @@
             justify-content: center;
             align-items: center;
         }
+        /* da sind die cooli farbe für de ligthmode hintergrund */
         .light-theme {
             background: #7F7FD5;
             background: -webkit-linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
             background: linear-gradient(to right, #91EAE4, #86A8E7, #7F7FD5);
         }
+        /* das isch das gliche aber für darkmode */
         .dark-theme {
             background: #000000;
             color: #f0f0f0;
             background: -webkit-linear-gradient(to right, #550527, #1c0802, #001233);
             background: linear-gradient(to right, #550527, #1c0802, #001233);
         }
+        /* grössi vo de gui in de mitti */
         .card {
             width: 600px;
             border: none;
         }
+        /* ihstellige für de kopfzille */
         .card-header {
             font-size: 1.5rem;
             background-color: #68a8ed;
             color: #ffffff;
         }
+        /* Schriftfarbe für de verschlüsslung/entschlüsslung tabs button */
         .nav-pills .nav-link {
             color: #68a8ed;
         }
+        /* Schriftfarbe und hintergrundfarbe für de aktive (also de wo mir grad druf sind) verschlüsslung/entschlüsslung tab button */
         .nav-pills .nav-link.active {
             color: #ffffff;
             background-color: #68a8ed;
         }
+        /* das isch für de kopfzille in darkmode */
         .dark-theme .card-header {
             font-size: 1.5rem;
             background-color: #000000;
             color: #ffffff;
         }
+        /* Schriftfarbe für de verschlüsslung/entschlüsslung tabs button aber in darkmode */
         .dark-theme .nav-pills .nav-link {
             color: #000000;
         }
+        /* das gliche mit dem aktive tab button aber in darkmode */
         .dark-theme .nav-pills .nav-link.active {
             color: #ffffff;
             background-color: #000000;
         }
+        /* das isch für de textfeld */
         textarea {
             resize: none;
         }
+        /* das isch de stil für de verschlüsseln button i de mitti */
         button {
             width: 100%;
         }
+        /* das sind farbe für das ihgabefeld und de button i de mitti */
         .form-group label {
             color: #68a8ed;
         }
@@ -69,6 +84,7 @@
             background-color: #68a8ed;
             border-color: #68a8ed;
         }
+        /* das gliiche wie obe aber in dark mode */
         .dark-theme .form-group label {
             color: #000000;
         }
@@ -80,10 +96,12 @@
             background-color: #000000;
             border-color: #ffffff;
         }
+        /* das sind ihstellige für das history bereich */
         #history {
             max-height: 200px;
             overflow-y: auto;
         }
+        /* das sind ahgabe für de darkmode/lightmode button */
         .theme-toggle {
             position: absolute;
             top: 20px;
@@ -97,22 +115,30 @@
     </style>
 </head>
 <body class="light-theme">
+    <!-- da wird de darkmode button definiert -->
     <button onclick="toggleTheme()" class="btn btn-secondary theme-toggle">Dark Mode</button>
+    <!-- da wird jetzt de cardbereich definiert -->
     <div class="card">
+        <!-- kopfzile vo de karte... -->
         <div class="card-header text-center">
             Caesar-Verschlüsselung
         </div>
         <div class="card-body">
+            <!-- Verschlüssseln und Entschlüsseln tabs... -->
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item">
+                    <!-- verschlüsseln button -->
                     <a class="nav-link active" id="encrypt-tab" data-toggle="pill" href="#encrypt" role="tab" aria-controls="encrypt" aria-selected="true">Verschlüsseln</a>
                 </li>
                 <li class="nav-item">
+                    <!-- entschlüsseln button -->
                     <a class="nav-link" id="decrypt-tab" data-toggle="pill" href="#decrypt" role="tab" aria-controls="decrypt" aria-selected="false">Entschlüsseln</a>
                 </li>
             </ul>
+            <!-- da wird de inhalt vo die tab buttons definiert -->
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="encrypt" role="tabpanel" aria-labelledby="encrypt-tab">
+                    <!-- da wird so de "formular" für die verschlüsseln tab definiert -->
                     <div class="form-group">
                         <label for="plaintext">Geben Sie Ihren Text ein:</label>
                         <textarea id="plaintext" name="plaintext" rows="4" class="form-control"></textarea>
@@ -124,6 +150,7 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="decrypt" role="tabpanel" aria-labelledby="decrypt-tab">
+                    <!-- da wird so de "formular" für die entschlüssle tab definiert -->
                     <div class="form-group">
                         <label for="ciphertext">Geben Sie Ihren verschlüsselten Text ein:</label>
                         <textarea id="ciphertext" name="ciphertext" rows="4" class="form-control"></textarea>
@@ -136,18 +163,24 @@
                 </div>
             </div>
         </div>
+        <!-- jetzt chunt de fusszeile vom karte -->
         <div class="card-footer">
+            <!-- da wird de verlauf button definiert -->
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#history" aria-expanded="false" aria-controls="history">
                 Verlauf Anzeigen
             </button>
             <div class="collapse" id="history">
-                <!-- History will be inserted here -->
+                <!-- denn wird da de verlauf ihgfügt -->
             </div>
         </div>
     </div>
+    <!-- jetzt bruche mer die javascript libraries -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- jetzt chunt en javascript code für die funktione vo de verschlüsselig, verlauf und darkmode button -->
     <script>
+        // das isch de funktion für das durchführe vo de ceaser verschlüsselung
+        //das text wird zerscht ufsplittet und den wird kontrolliert ob es en buchstab oder en nummer isch. wenn es en buchstab isch wird es um beliebig viel verschobe. am ende wird alles mit join wieder verbunde
         function caesarShift(text, shift) {
             return text.split('').map(function(c) {
                 if (c.match(/[a-z]/i)) {
@@ -159,6 +192,9 @@
             }).join('')
         }
 
+        // das isch de funktione für das verschlüssle vo de text wo mer ihgeh het
+        // da luegt es zerscht ob de text "never gonna give you up" isch. wenn es das isch wird er zu dem youtube-link von never gonna give you up redirected, wenn es aber nöd das isch benutzt er de funktion vo obe und verschiebt es um 1
+        // am schluss speichert er de ihgab id verlauf ine
         function encrypt() {
             var plaintext = document.getElementById('plaintext').value;
             if (plaintext.toLowerCase() === "never gonna give you up") {
@@ -170,6 +206,7 @@
             }
         }
 
+        // das isch das gliiche wie obe aber umgekehrt mit entschlüssele
         function decrypt() {
             var ciphertext = document.getElementById('ciphertext').value;
             var decrypted = caesarShift(ciphertext, -1);
@@ -181,6 +218,10 @@
             }
         }
 
+        // das isch de funktion vo de verlauf
+        // da nimmt es de verschlüsseligsart, input,output und datum und speichert als ahgabe in de verlauf ine
+        //es chan nur max 10 ahgabe ha
+        // alles wird im local storage von den Browser gespeichert, wenn man den browser cache löscht wird verlauf au glöscht
         function saveToHistory(type, input, output) {
             var history = JSON.parse(localStorage.getItem("caesarCipherHistory") || "[]")
             history.unshift({
@@ -196,6 +237,7 @@
             loadHistory()
         }
 
+        
         function loadHistory() {
             var history = JSON.parse(localStorage.getItem("caesarCipherHistory") || "[]")
             var historyDiv = document.getElementById('history')
@@ -205,6 +247,7 @@
             })
         }
 
+        
         function toggleTheme() {
             var body = document.body;
             var toggleButton = document.querySelector('.theme-toggle');
@@ -218,6 +261,7 @@
             }
         }
 
+        
         window.onload = function() {
             loadHistory()
         }

@@ -237,7 +237,7 @@
             loadHistory()
         }
 
-        
+        //das lädt immer de neue ahgab ine und tut de aelteste use
         function loadHistory() {
             var history = JSON.parse(localStorage.getItem("caesarCipherHistory") || "[]")
             var historyDiv = document.getElementById('history')
@@ -247,7 +247,8 @@
             })
         }
 
-        
+        //das isch für de darkmode knop
+        //wenn mer drufdruckt wechselt es uf de dark theme
         function toggleTheme() {
             var body = document.body;
             var toggleButton = document.querySelector('.theme-toggle');
@@ -261,7 +262,7 @@
             }
         }
 
-        
+        das isch eif für de history
         window.onload = function() {
             loadHistory()
         }
